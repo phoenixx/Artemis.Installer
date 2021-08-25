@@ -30,9 +30,11 @@ namespace Artemis.Installer.Services.Prerequisites
             if (versionValue == null)
                 return false;
 
-            // This means we'll be false for preview versions but I'm not going down that rabbit hole anyway
             if (Version.TryParse(versionValue.ToString(), out Version dotnetVersion))
                 return dotnetVersion.Major >= 5;
+            //adding support for preview .NET6
+            string vers = versionValue.ToString().Substring(0, 1);
+            if (vers == "6") return true;
             return false;
         }
 
