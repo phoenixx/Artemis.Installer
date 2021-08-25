@@ -4,6 +4,8 @@ using Artemis.Installer.Screens.Abstract;
 using Artemis.Installer.Services;
 using Artemis.Installer.Services.Prerequisites;
 using Artemis.Installer.Stylet;
+using Artemis.Installer.Utilities;
+using DotNetWindowsRegistry;
 using FluentValidation;
 using Stylet;
 using StyletIoC;
@@ -21,11 +23,14 @@ namespace Artemis.Installer
 
             // Services
             builder.Bind<IInstallationService>().To<InstallationService>().InSingletonScope();
-
+            
             // Validation
             builder.Bind(typeof(IModelValidator<>)).To(typeof(FluentValidationAdapter<>));
             builder.Bind(typeof(IValidator<>)).ToAllImplementations();
 
+            // Utilities
+            builder.Bind<IRegistry>().To<WindowsRegistry>().InSingletonScope();
+            
             base.ConfigureIoC(builder);
         }
 

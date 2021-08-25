@@ -23,6 +23,9 @@ bld/
 # Visual Studo 2015 cache/options directory
 .vs/
 
+# Rider cache directory
+.idea/
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*

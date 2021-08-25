@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Artemis.Installer", "Artemis.Installer\Artemis.Installer.csproj", "{2AE00626-50EC-4788-9EA7-CDADB00502A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artemis.Installer.UnitTests", "Artemis.Installer.UnitTests\Artemis.Installer.UnitTests.csproj", "{BEE03D5D-CA42-40FA-8A48-D6814A8A70C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		asd|x64 = asd|x64
@@ -18,6 +20,12 @@ Global
 		{2AE00626-50EC-4788-9EA7-CDADB00502A3}.Debug|x64.Build.0 = Debug|Any CPU
 		{2AE00626-50EC-4788-9EA7-CDADB00502A3}.Release|x64.ActiveCfg = Release|Any CPU
 		{2AE00626-50EC-4788-9EA7-CDADB00502A3}.Release|x64.Build.0 = Release|Any CPU
+		{BEE03D5D-CA42-40FA-8A48-D6814A8A70C8}.asd|x64.ActiveCfg = Debug|Any CPU
+		{BEE03D5D-CA42-40FA-8A48-D6814A8A70C8}.asd|x64.Build.0 = Debug|Any CPU
+		{BEE03D5D-CA42-40FA-8A48-D6814A8A70C8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BEE03D5D-CA42-40FA-8A48-D6814A8A70C8}.Debug|x64.Build.0 = Debug|Any CPU
+		{BEE03D5D-CA42-40FA-8A48-D6814A8A70C8}.Release|x64.ActiveCfg = Release|Any CPU
+		{BEE03D5D-CA42-40FA-8A48-D6814A8A70C8}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

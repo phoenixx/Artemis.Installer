@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Artemis.Installer.Utilities;
+using DotNetWindowsRegistry;
 using Microsoft.Win32;
 
 namespace Artemis.Installer.Services.Prerequisites
 {
     public class DotnetPrerequisite : IPrerequisite
     {
+        private readonly IRegistry _registry;
+
+        public DotnetPrerequisite(IRegistry registry)
+        {
+            _registry = registry;
+        }
+        
         protected virtual void OnDownloadProgressUpdated()
         {
             DownloadProgressUpdated?.Invoke(this, EventArgs.Empty);
@@ -14,7 +22,7 @@ namespace Artemis.Installer.Services.Prerequisites
 
         public string Title => ".NET 5 runtime x64";
         public string Description => "The .NET 5 runtime is required for Artemis to run, the download is about 50 MB";
-        public string DownloadUrl => "https://download.visualstudio.microsoft.com/download/pr/2b83d30e-5c86-4d37-a1a6-582e22ac07b2/c7b1b7e21761bbfb7b9951f5b258806e/windowsdesktop-runtime-5.0.7-win-x64.exe";
+        public string DownloadUrl => "https://download.visualstudio.microsoft.com/download/pr/8bc41df1-cbb4-4da6-944f-6652378e9196/1014aacedc80bbcc030dabb168d2532f/windowsdesktop-runtime-5.0.9-win-x64.exe";
 
         public bool IsDownloading { get; set; }
         public bool IsInstalling { get; set; }
@@ -25,16 +33,17 @@ namespace Artemis.Installer.Services.Prerequisites
 
         public bool IsMet()
         {
-            RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedhost");
+            IRegistryKey registryKey = _registry.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default);
+            IRegistryKey key = registryKey.OpenSubKey(@"SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedhost");
             object versionValue = key?.GetValue("Version");
             if (versionValue == null)
                 return false;
 
-            if (Version.TryParse(versionValue.ToString(), out Version dotnetVersion))
-                return dotnetVersion.Major >= 5;
-            //adding support for preview .NET6
-            string vers = versionValue.ToString().Substring(0, 1);
-            if (vers == "6") return true;
+            if (SemanticVersion.TryParse(versionValue.ToString(), out SemanticVersion dotnetVersion))
+            {
+                return dotnetVersion.Version.Major >= 5;
+            }
+
             return false;
         }
 
